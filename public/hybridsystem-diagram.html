@@ -1,0 +1,467 @@
+<!doctype html>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HYBRIDSYSTEM App Diagram</title>
+<style>
+  :root {
+    --bg-canvas: #f6f6f2;
+    --bg-surface: #ffffff;
+    --bg-dark: #0a0a0a;
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --accent-lime: #d4f000;
+    --accent-lime-muted: #e4f759;
+    --border-grid: #e2e2dc;
+    --border-dark: #222222;
+    --line-soft: #b9b9ae;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--bg-canvas);
+    background-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    color: var(--text-primary);
+    font:
+      14px/1.4 "Plus Jakarta Sans",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+  }
+
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 18px 36px;
+  }
+
+  .topbar {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 -18px 22px;
+    padding: 0 24px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border-grid);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: 0;
+  }
+
+  .status-pill,
+  .section-tag,
+  .nav-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border-grid);
+    background: var(--bg-canvas);
+    color: var(--text-secondary);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .status-pill {
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    background: var(--accent-lime);
+    border-radius: 999px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-chip {
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: transparent;
+  }
+
+  .nav-chip.active {
+    background: var(--bg-dark);
+    border-color: var(--bg-dark);
+    color: #ffffff;
+  }
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 28px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .section-tag {
+    border: 0;
+    background: transparent;
+    padding: 0;
+  }
+
+  .section-tag::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    background: var(--accent-lime);
+  }
+
+  h1 {
+    max-width: 720px;
+    margin: 10px 0 0;
+    font-size: clamp(34px, 5vw, 64px);
+    line-height: 0.96;
+    letter-spacing: 0;
+  }
+
+  .meta {
+    max-width: 315px;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+
+  .canvas {
+    overflow-x: auto;
+    background: rgba(255, 255, 255, 0.66);
+    border: 1px solid var(--border-grid);
+    border-radius: 4px;
+  }
+
+  svg {
+    min-width: 1060px;
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .zone {
+    fill: rgba(246, 246, 242, 0.7);
+    stroke: var(--line-soft);
+    stroke-width: 1;
+    stroke-dasharray: 7 6;
+  }
+
+  .node {
+    fill: var(--bg-surface);
+    stroke: var(--text-primary);
+    stroke-width: 1.2;
+    rx: 4;
+  }
+
+  .node.dark {
+    fill: var(--bg-dark);
+    stroke: var(--border-dark);
+  }
+
+  .node.lime {
+    fill: #fbfff0;
+    stroke: var(--accent-lime);
+    stroke-width: 2;
+  }
+
+  .node.soft {
+    fill: #fdfdf9;
+    stroke: var(--border-grid);
+  }
+
+  .edge {
+    fill: none;
+    stroke: #111111;
+    stroke-width: 1.6;
+  }
+
+  .edge.soft {
+    stroke: #929287;
+    stroke-dasharray: 5 5;
+  }
+
+  .title {
+    fill: var(--text-primary);
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .title.dark {
+    fill: #ffffff;
+  }
+
+  .label {
+    fill: var(--text-secondary);
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  .mono {
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .mono.dark,
+  .label.dark {
+    fill: #d9d9d0;
+  }
+
+  .seq {
+    fill: var(--accent-lime);
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .square {
+    fill: var(--accent-lime);
+  }
+
+  .lane-title {
+    fill: #77776c;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .footer {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .footer-card {
+    min-height: 78px;
+    padding: 14px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-grid);
+    border-radius: 4px;
+  }
+
+  .footer-card strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+
+  .footer-card span {
+    color: var(--text-secondary);
+    font-size: 12px;
+  }
+
+  @media (max-width: 760px) {
+    .topbar,
+    .heading,
+    .footer {
+      display: block;
+    }
+
+    .nav {
+      margin-top: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .meta {
+      margin-top: 12px;
+      max-width: none;
+    }
+
+    .footer-card {
+      margin-bottom: 10px;
+    }
+  }
+</style>
+<main>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">D&amp;D</span>
+      <span class="status-pill"><span class="status-dot"></span>Future OS</span>
+    </div>
+    <nav class="nav" aria-label="Diagram sections">
+      <span class="nav-chip active">Missions</span>
+      <span class="nav-chip">Team</span>
+      <span class="nav-chip">Memory</span>
+      <span class="nav-chip">Blueprint</span>
+    </nav>
+  </header>
+
+  <section class="heading" aria-labelledby="diagram-title">
+    <div>
+      <span class="section-tag">01 / App Map</span>
+      <h1 id="diagram-title">HYBRIDSYSTEM operating diagram</h1>
+    </div>
+    <p class="meta">
+      The app centers on a controlled mission loop: playbooks create work, agents execute steps, humans approve higher authority actions, and memory feeds the next run.
+    </p>
+  </section>
+
+  <section class="canvas" aria-label="HYBRIDSYSTEM app architecture diagram">
+    <svg viewBox="0 0 1060 690" role="img" aria-labelledby="svg-title svg-desc" xmlns="http://www.w3.org/2000/svg">
+      <title id="svg-title">HYBRIDSYSTEM app architecture</title>
+      <desc id="svg-desc">A styled diagram showing the AppShell navigation, mission loop, team roster, memory, governance, models, tools, and local persistence.</desc>
+      <defs>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#111111"></path>
+        </marker>
+        <marker id="arrow-soft" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#929287"></path>
+        </marker>
+      </defs>
+
+      <rect x="28" y="28" width="1004" height="634" fill="#f6f6f2"></rect>
+      <path d="M28 92H1032M28 156H1032M28 220H1032M28 284H1032M28 348H1032M28 412H1032M28 476H1032M28 540H1032M28 604H1032" stroke="#000" stroke-opacity="0.04"></path>
+      <path d="M92 28V662M156 28V662M220 28V662M284 28V662M348 28V662M412 28V662M476 28V662M540 28V662M604 28V662M668 28V662M732 28V662M796 28V662M860 28V662M924 28V662M988 28V662" stroke="#000" stroke-opacity="0.04"></path>
+
+      <rect class="zone" x="54" y="68" width="952" height="104" rx="4"></rect>
+      <text class="lane-title" x="74" y="94">Interface Shell</text>
+      <rect class="zone" x="54" y="208" width="952" height="250" rx="4"></rect>
+      <text class="lane-title" x="74" y="234">Mission Execution Loop</text>
+      <rect class="zone" x="54" y="494" width="952" height="126" rx="4"></rect>
+      <text class="lane-title" x="74" y="520">Governance + Persistence</text>
+
+      <path class="edge" marker-end="url(#arrow)" d="M193 327 C225 327 234 327 260 327"></path>
+      <path class="edge" marker-end="url(#arrow)" d="M388 327 C421 327 431 327 457 327"></path>
+      <path class="edge" marker-end="url(#arrow)" d="M585 327 C618 327 626 327 654 327"></path>
+      <path class="edge" marker-end="url(#arrow)" d="M782 327 C813 327 822 327 851 327"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M752 380 C723 448 648 500 552 520"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M439 532 C350 500 306 448 324 382"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M546 266 C603 190 711 156 818 140"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M533 266 C487 190 396 157 286 140"></path>
+      <path class="edge" marker-end="url(#arrow)" d="M526 172 L526 254"></path>
+
+      <rect class="node dark" x="88" y="108" width="178" height="64"></rect>
+      <rect class="square" x="106" y="130" width="10" height="10"></rect>
+      <text class="seq" x="124" y="135">00</text>
+      <text class="title dark" x="106" y="154">Org + User Context</text>
+      <text class="label dark" x="106" y="169">team, plan, cost cap</text>
+
+      <rect class="node" x="336" y="96" width="380" height="76"></rect>
+      <rect class="square" x="356" y="120" width="10" height="10"></rect>
+      <text class="seq" x="374" y="125">SHELL</text>
+      <text class="title" x="356" y="148">AppShell Navigation</text>
+      <text class="label" x="356" y="164">missions / team roster / playbooks / memory / blueprint / settings</text>
+
+      <rect class="node soft" x="788" y="108" width="178" height="64"></rect>
+      <rect class="square" x="806" y="130" width="10" height="10"></rect>
+      <text class="seq" x="824" y="135">LIVE</text>
+      <text class="title" x="806" y="154">Worker Controls</text>
+      <text class="label" x="806" y="169">auto tick + manual run</text>
+
+      <rect class="node" x="74" y="286" width="120" height="82"></rect>
+      <text class="mono" x="94" y="313">01 / Input</text>
+      <text class="title" x="94" y="337">Playbooks</text>
+      <text class="label" x="94" y="354">reusable steps</text>
+
+      <rect class="node lime" x="260" y="270" width="128" height="114"></rect>
+      <text class="mono" x="284" y="299">02 / Work</text>
+      <text class="title" x="284" y="326">Missions</text>
+      <text class="label" x="284" y="344">draft, running,</text>
+      <text class="label" x="284" y="360">blocked, done</text>
+
+      <rect class="node" x="457" y="270" width="128" height="114"></rect>
+      <text class="mono" x="481" y="299">03 / Queue</text>
+      <text class="title" x="481" y="326">Step Jobs</text>
+      <text class="label" x="481" y="344">queued, leased,</text>
+      <text class="label" x="481" y="360">failed, complete</text>
+
+      <rect class="node dark" x="654" y="270" width="128" height="114"></rect>
+      <text class="mono dark" x="678" y="299">04 / Team</text>
+      <text class="title dark" x="678" y="326">AI Agents</text>
+      <text class="label dark" x="678" y="344">strategy, review,</text>
+      <text class="label dark" x="678" y="360">GTM, tech, ops</text>
+
+      <rect class="node" x="851" y="270" width="128" height="114"></rect>
+      <text class="mono" x="875" y="299">05 / Output</text>
+      <text class="title" x="875" y="326">Artifacts</text>
+      <text class="label" x="875" y="344">docs, links, files,</text>
+      <text class="label" x="875" y="360">mission evidence</text>
+
+      <rect class="node soft" x="124" y="532" width="160" height="68"></rect>
+      <text class="mono" x="144" y="560">Authority</text>
+      <text class="title" x="144" y="582">L0-L4 Gates</text>
+      <text class="label" x="144" y="598">suggest to human only</text>
+
+      <rect class="node lime" x="348" y="522" width="168" height="88"></rect>
+      <text class="mono" x="372" y="550">Human Control</text>
+      <text class="title" x="372" y="574">Approvals</text>
+      <text class="label" x="372" y="592">approve, revise, reject</text>
+
+      <rect class="node" x="580" y="522" width="168" height="88"></rect>
+      <text class="mono" x="604" y="550">Memory</text>
+      <text class="title" x="604" y="574">Team Memory</text>
+      <text class="label" x="604" y="592">proposed versus in effect</text>
+
+      <rect class="node dark" x="812" y="532" width="160" height="68"></rect>
+      <text class="mono dark" x="832" y="560">Browser Store</text>
+      <text class="title dark" x="832" y="582">localStorage</text>
+      <text class="label dark" x="832" y="598">demo state persists</text>
+
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M204 532 C221 470 247 421 287 379"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M432 522 C430 478 454 421 497 383"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M748 566 C770 566 791 566 812 566"></path>
+      <path class="edge soft" marker-end="url(#arrow-soft)" d="M916 532 C929 475 932 430 923 383"></path>
+
+      <rect x="84" y="428" width="10" height="10" class="square"></rect>
+      <text class="label" x="102" y="438">Playbook templates become mission steps.</text>
+      <rect x="355" y="428" width="10" height="10" class="square"></rect>
+      <text class="label" x="373" y="438">Worker loop advances jobs and pauses for approval.</text>
+      <rect x="716" y="428" width="10" height="10" class="square"></rect>
+      <text class="label" x="734" y="438">Approved facts become future context.</text>
+
+      <text class="mono" x="72" y="648">HYBRIDSYSTEM / D&amp;D Future OS / Workable Sunday Demo Branch</text>
+    </svg>
+  </section>
+
+  <section class="footer" aria-label="Diagram key points">
+    <div class="footer-card">
+      <strong>Primary Loop</strong>
+      <span>Launch mission, process steps, review outputs, then store approved lessons.</span>
+    </div>
+    <div class="footer-card">
+      <strong>Human Override</strong>
+      <span>Higher authority tools stop at explicit approve, revise, or reject decisions.</span>
+    </div>
+    <div class="footer-card">
+      <strong>Demo State</strong>
+      <span>Seed data and browser storage make the prototype feel live during refreshes.</span>
+    </div>
+    <div class="footer-card">
+      <strong>Blueprint</strong>
+      <span>The app includes the product spec, stack map, RLS schema, and cost model.</span>
+    </div>
+  </section>
+</main>
