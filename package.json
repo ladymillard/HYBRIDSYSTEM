@@ -9,7 +9,12 @@
     "preview": "vite preview",
     "start": "vite --port=3000 --host=0.0.0.0",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "arena": "node arena/bin/arena.ts",
+    "arena:serve": "node arena/bin/arena.ts serve --seed",
+    "arena:demo": "node arena/bin/arena.ts demo",
+    "arena:test": "node --test arena/test/*.test.ts",
+    "arena:routes": "node arena/bin/arena.ts routes"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
