@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-canvas: #f6f6f2;
+    --bg-surface: #ffffff;
+    --bg-dark: #0a0a0a;
+    --text-primary: #111111;
+    --text-secondary: #666666;
+    --accent-lime: #d4f000;
+    --accent-lime-muted: #e4f759;
+    --border-grid: #e2e2dc;
+    --border-dark: #222222;
+  }
+
+  body {
+    background-color: #f6f6f2;
+    color: #111111;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  code, kbd, samp, pre {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* Crisp custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* D&D Architectural Grid Texture */
+.dd-grid-bg {
+  background-color: #f6f6f2;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.dd-dark-grid-bg {
+  background-color: #0a0a0a;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* D&D Section Number Tag (e.g. ■ 01 / THE PREMISE) */
+.dd-section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.dd-section-tag::before {
+  content: '';
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  background-color: #d4f000;
+}
+
+/* D&D Clean Architectural Card */
+.dd-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e2dc;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.dd-card-interactive {
+  background-color: #ffffff;
+  border: 1px solid #e2e2dc;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+}
+.dd-card-interactive:hover {
+  border-color: #111111;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* D&D Inverted Dark Card (like section 03 in PDF) */
+.dd-dark-panel {
+  background-color: #0a0a0a;
+  color: #f6f6f2;
+  border: 1px solid #222222;
+  border-radius: 4px;
+}
+
+/* D&D Flowchart Box (like ① FUTURE STATE -> ② ALIGNMENT -> ③ FUTURE OS) */
+.dd-flow-box {
+  border: 1px solid #111111;
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  position: relative;
+}
+.dd-flow-box-highlight {
+  border: 1.5px solid #d4f000;
+  background: #ffffff;
+  box-shadow: 0 0 15px rgba(212, 240, 0, 0.25);
+}
+
+/* D&D Chartreuse Accent Line / Glow */
+.dd-lime-glow {
+  box-shadow: 0 0 18px rgba(212, 240, 0, 0.4);
+}
+
+/* Reticle / Crosshair Mark */
+.dd-crosshair {
+  position: relative;
+}
+.dd-crosshair::before, .dd-crosshair::after {
+  content: '';
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+
